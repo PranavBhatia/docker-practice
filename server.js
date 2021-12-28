@@ -11,20 +11,22 @@ const profile = require("./controllers/profile");
 const image = require("./controllers/image");
 const auth = require("./controllers/authorization");
 
+console.log("process.env.POSTGRES_USER", process.env.POSTGRES_USER);
+
 //Database Setup - add your own information here based on the DB you created
 const db = knex({
   client: "pg",
   connection: {
-    host: "127.0.0.1",
-    user: "aneagoie",
-    password: "",
-    database: "smart-brain",
+    host: process.env.POSTGRES_HOST,
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    database: process.env.POSTGRES_DB,
   },
 });
 
 const app = express();
 
-app.use(morgan('combined'));
+app.use(morgan("combined"));
 app.use(cors());
 app.use(express.json()); // latest version of exressJS now comes with Body-Parser!
 
